@@ -42,7 +42,12 @@ rule all_preprocess:
 rule demultiplex:
     input:
         script=workflow.basedir + '/scripts/debarcode.py',
-        fastq=lambda wildcards: glob.glob(config['samples'][wildcards.sample]['fastq_path'] + '/**/*{lane}*R[123]*.fastq.gz'.format(lane=wildcards.lane),recursive=True)
+        # Use this to handle debarcoding process for fastq files of two sequencing batches for the same library 
+        fastq=lambda wildcards: glob.glob(
+            config['samples'][wildcards.sample]['fastq_path'] +
+            f"/**/*_{wildcards.number}_{wildcards.lane}_R[123]_*.fastq.gz",
+            recursive=True
+        )    
     output:
         '{sample}/{modality}_{barcode}/fastq/barcode_{barcode}/{sample}_{number}_{lane}_R1_{suffix}',
         '{sample}/{modality}_{barcode}/fastq/barcode_{barcode}/{sample}_{number}_{lane}_R2_{suffix}',
