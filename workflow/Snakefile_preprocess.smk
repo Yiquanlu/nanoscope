@@ -269,7 +269,7 @@ rule create_matrix_peaks:
     output:
         features = '{sample}/{modality}_{barcode}/matrix/matrix_peaks/features.tsv.gz',
         matrix   = '{sample}/{modality}_{barcode}/matrix/matrix_peaks/matrix.mtx.gz',
-        barcodes = '{sample}/{modality}_{barcode}/matrix/matrix_peaks/barcodes.tsv',
+        barcodes = '{sample}/{modality}_{barcode}/matrix/matrix_peaks/barcodes.tsv.gz',
         folder   = directory('{sample}/{modality}_{barcode}/matrix/matrix_peaks/'),
     shell:
         'fragtk matrix -f {input.frag} -b {input.peaks} -c {input.cells} -o {output.folder}'
@@ -282,7 +282,7 @@ rule create_matrix_bins:
     output:
         features   = '{sample}/{modality}_{barcode}/matrix/matrix_bin_{bins}/features.tsv.gz',
         matrix     = '{sample}/{modality}_{barcode}/matrix/matrix_bin_{bins}/matrix.mtx.gz',
-        barcodes   = '{sample}/{modality}_{barcode}/matrix/matrix_bin_{bins}/barcodes.tsv',
+        barcodes   = '{sample}/{modality}_{barcode}/matrix/matrix_bin_{bins}/barcodes.tsv.gz',
         folder     = directory('{sample}/{modality}_{barcode}/matrix/matrix_bin_{bins}/'),
         chromsizes = temp('{sample}/{modality}_{barcode}/chromsizes_{bins}.txt'),
         windows    = temp('{sample}/{modality}_{barcode}/windows_{bins}.txt'),
@@ -306,7 +306,7 @@ rule create_genebody_and_promoter_matrix:
         gene_names   = '{sample}/{modality}_{barcode}/matrix/matrix_genes/gene_names.txt',
         features     = '{sample}/{modality}_{barcode}/matrix/matrix_genes/features.tsv.gz',
         matrix       = '{sample}/{modality}_{barcode}/matrix/matrix_genes/matrix.mtx.gz',
-        barcodes     = '{sample}/{modality}_{barcode}/matrix/matrix_genes/barcodes.tsv',
+        barcodes     = '{sample}/{modality}_{barcode}/matrix/matrix_genes/barcodes.tsv.gz',
         folder       = directory('{sample}/{modality}_{barcode}/matrix/matrix_genes/'),
     conda: '../envs/nanoscope_general.yaml'
     params:
